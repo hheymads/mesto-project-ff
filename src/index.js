@@ -3,9 +3,6 @@ import {initialCards} from './scripts/cards.js';
 import {createCard, handleDeleteCard, handleLikeCard} from './components/card.js';
 import {openModal, closeModal} from './components/modal.js';
 
-// @todo: Темплейт карточки
-const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
-
 // @todo: DOM узлы
 const placesList = document.querySelector('.places__list');
 const formEditProfile = document.querySelector('.popup__form[name="edit-profile"]');
@@ -30,7 +27,7 @@ const popupAddBtn = document.querySelector('.popup_type_new-card');
 //открытие картинки
 const popupTypeImage = document.querySelector('.popup_type_image');
 const popupImage = document.querySelector('.popup__image');
-const popupCaption = document.querySelector('.popup__caption');
+const popupImageCaption = document.querySelector('.popup__caption');
 
 // Плавное открытие/закрытие попапов
 const popups = document.querySelectorAll('.popup');
@@ -38,13 +35,11 @@ popups.forEach((popup) => {
     popup.classList.add('popup_is-animated');
 });
 
-
-
 //Функция открытия попапа с картинкой
 function openImageClick(item) {
     popupImage.src = item.link;
     popupImage.alt = item.name;
-    popupCaption.textContent = item.name;
+    popupImageCaption.textContent = item.name;
     openModal(popupTypeImage);
 };
 
@@ -64,7 +59,7 @@ editProfileBtn.addEventListener('click', () => {
 });
 
 // Обработчик отправки формы "редактировать профиль"
-function handleFormSubmit(evt) {
+function handleProfileFormSubmit(evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
     
     // Получение значений полей из свойства value
@@ -80,7 +75,7 @@ function handleFormSubmit(evt) {
 };
 
 // Прикрепляем обработчик к форме редактирования профиля
-formEditProfile.addEventListener('submit', handleFormSubmit);
+formEditProfile.addEventListener('submit', handleProfileFormSubmit);
 
 addBtn.addEventListener('click', () => {
     openModal(popupAddBtn);
