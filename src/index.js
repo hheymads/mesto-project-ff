@@ -39,15 +39,10 @@ const popupImageCaption = document.querySelector('.popup__caption');
 
 // Обработчик клика по аватару
 avatarEditBtn.addEventListener('click', () => {
-  console.log('Клик по аватару');
-  console.log('popupAvatar:', popupAvatar); // проверяем, находит ли элемент
-  console.log('popupAvatar classes before:', popupAvatar.classList.toString());
 
   formAvatar.reset();
   clearValidation(formAvatar, validationConfig);
   openModal(popupAvatar);
-
-  console.log('popupAvatar classes after:', popupAvatar.classList.toString());
 });
 
 // Плавное открытие/закрытие попапов
