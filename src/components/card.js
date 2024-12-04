@@ -1,24 +1,8 @@
-import { addLike, removeLike} from './api.js';
-
 // Находим template элемент
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
 
-// Функция обработки лайка
-const handleLikeClick = (cardId, isLiked, likeButton, likeCounter) => {
-    const likeMethod = isLiked ? removeLike : addLike;
-
-    likeMethod(cardId)
-        .then((updatedCard) => {
-            likeButton.classList.toggle('card__like-button_is-active');
-            likeCounter.textContent = updatedCard.likes.length;
-        })
-        .catch((err) => {
-            console.log('Ошибка при обработке лайка:', err);
-        });
-};
-
 // Функция создания карточки
-export const createCard = (cardData, handleDeleteCard, openImageClick, userId) => {
+export const createCard = (cardData, handleLikeClick, handleDeleteCard, openImageClick, userId) => {
     const cardElement = cardTemplate.cloneNode(true);
     const deleteBtn = cardElement.querySelector('.card__delete-button');
     const likeBtn = cardElement.querySelector('.card__like-button');
@@ -56,20 +40,8 @@ export const createCard = (cardData, handleDeleteCard, openImageClick, userId) =
     // Обработчик лайка
     likeBtn.addEventListener('click', () => {
         const isLiked = likeBtn.classList.contains('card__like-button_is-active');
-        const likeMethod = isLiked ? removeLike : addLike;
-
-        likeMethod(cardData._id)
-            .then((updatedCard) => {
-                likeBtn.classList.toggle('card__like-button_is-active');
-                likeCounter.textContent = updatedCard.likes.length;
-            })
-            .catch((err) => {
-                console.log('Ошибка при обработке лайка:', err);
-            });
+        handleLikeClick(cardData._id, isLiked, likeBtn, likeCounter);
     });
 
     return cardElement;
 };
-
-// Экспортируем функцию обработки лайка с псевдонимом
-export { handleLikeClick as handleLikeCard };
